@@ -27,7 +27,7 @@ app.use(express.json())
 app.post("/buku", (req, res) => {
     res.status(201).json({
         judul: req.body.judul,
-        Pesan: "Buku ditambahkan" 
+        pesan: "Buku ditambahkan"
     })
 })
 
