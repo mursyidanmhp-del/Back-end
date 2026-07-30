@@ -1,0 +1,21 @@
+{
+  "name": "latihan-express-crud-lengkap",
+  "version": "1.0.0",
+  "description": "Latihan Express lanjutan: PUT (update), DELETE, dan CRUD REST API lengkap",
+  "main": "test/test-all.js",
+  "scripts": {
+    "test": "node test/test-all.js",
+    "test:put-update": "node test/01-test-put-update.js",
+    "test:delete": "node test/02-test-delete.js",
+    "test:crud-lengkap": "node test/03-test-crud-lengkap.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
