@@ -46,12 +46,12 @@ app.get("/buku", (req, res) => {
 
 app.get("/buku/:id", (req, res) => {
   let buku = perpustakaan.find(function (b) {
-    b.id === Number(req.params.id);
+   return  b.id === Number(req.params.id);
   });
   res.status(200).json(buku);
 });
 
-app.post("/buku/:id", (req, res) => {
+app.post("/buku", (req, res) => {
   let bukuBaru = { id: perpustakaan.length + 1, judul: req.body.judul };
   perpustakaan.push(bukuBaru);
   res.status(201).json(bukuBaru);
