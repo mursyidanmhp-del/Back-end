@@ -18,7 +18,14 @@
  */
 
 // TODO: tulis kode kamu di sini
+const express = require("express")
+const app = express()
 
+app.get("/sapa/:nama", (req, res) => {
+    res.send("Halo, " + req.params.nama + "!")
+})
+
+module.exports = app
 /**
  * Kalau diakses GET ke "/sapa/Budi", diharapkan:
  * - status: 200

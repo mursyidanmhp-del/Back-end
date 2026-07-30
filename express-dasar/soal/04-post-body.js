@@ -19,7 +19,19 @@
  */
 
 // TODO: tulis kode kamu di sini
+const express = require("express")
+const app = express()
 
+app.use(express.json())
+
+app.post("/cari", (req, res) => {
+    res.status(201).json({
+        Judul: req.body.Judul,
+        Pesan: "Buku ditambahkan" 
+    })
+})
+
+module.exports = app
 /**
  * Kalau diakses POST ke "/buku" dengan body { "judul": "Negeri 5 Menara" },
  * diharapkan:

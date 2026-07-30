@@ -19,7 +19,14 @@
  */
 
 // TODO: tulis kode kamu di sini
+const express = require("express")
+const app = express()
 
+app.get("/", (req, res) => {
+    res.send("Halo dari Express!")
+})
+
+module.exports = app
 /**
  * Kalau diakses GET ke "/", diharapkan:
  * - status: 200

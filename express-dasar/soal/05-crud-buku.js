@@ -30,6 +30,34 @@
  */
 
 // TODO: tulis kode kamu di sini
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+let perpustakaan = [
+  { id: 1, judul: "Laskar Pelangi" },
+  { id: 2, judul: "Bumi Manusia" },
+];
+
+app.get("/buku", (req, res) => {
+  res.status(200).json(perpustakaan);
+});
+
+app.get("/buku/:id", (req, res) => {
+  let buku = perpustakaan.find(function (b) {
+    b.id === Number(req.params.id);
+  });
+  res.status(200).json(buku);
+});
+
+app.post("/buku/:id", (req, res) => {
+  let bukuBaru = { id: perpustakaan.length + 1, judul: req.body.judul };
+  perpustakaan.push(bukuBaru);
+  res.status(201).json(bukuBaru);
+});
+
+module.exports = app;
 
 /**
  * Kalau diakses:

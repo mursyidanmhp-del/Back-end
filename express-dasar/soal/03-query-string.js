@@ -18,7 +18,15 @@
  */
 
 // TODO: tulis kode kamu di sini
+const express = require("express")
+const app = (express())
 
+
+app.get("/cari", (req, res) => {
+    res.send("Mencari: " + req.query.keyword)
+})
+
+module.exports = app
 /**
  * Kalau diakses GET ke "/cari?keyword=laptop", diharapkan:
  * - status: 200
