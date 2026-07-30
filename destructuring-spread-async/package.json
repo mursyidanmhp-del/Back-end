@@ -1,0 +1,18 @@
+{
+  "name": "latihan-destructuring-spread-async",
+  "version": "1.0.0",
+  "description": "Latihan destructuring object/array, spread operator, dan Promise/async-await dasar",
+  "main": "test/test-all.js",
+  "scripts": {
+    "test": "node test/test-all.js",
+    "test:destructuring-object": "node test/01-test-destructuring-object.js",
+    "test:destructuring-array": "node test/02-test-destructuring-array.js",
+    "test:spread-operator": "node test/03-test-spread-operator.js",
+    "test:promise-dasar": "node test/04-test-promise-dasar.js",
+    "test:async-await-dasar": "node test/05-test-async-await-dasar.js",
+    "test:gabungan": "node test/06-test-gabungan.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
