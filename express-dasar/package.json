@@ -1,0 +1,23 @@
+{
+  "name": "latihan-express-dasar",
+  "version": "1.0.0",
+  "description": "Latihan Express Dasar (routing GET/POST, route parameter, query string, body, CRUD sederhana)",
+  "main": "test/test-all.js",
+  "scripts": {
+    "test": "node test/test-all.js",
+    "test:get-dasar": "node test/01-test-get-dasar.js",
+    "test:route-param": "node test/02-test-route-param.js",
+    "test:query-string": "node test/03-test-query-string.js",
+    "test:post-body": "node test/04-test-post-body.js",
+    "test:crud-buku": "node test/05-test-crud-buku.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
