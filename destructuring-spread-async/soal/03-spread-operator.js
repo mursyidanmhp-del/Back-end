@@ -23,6 +23,12 @@
  */
 
 // TODO: tulis kode kamu di sini
+belanja = ["Roti", "Susu"]
+const belanjaBaru = [...belanja, "Telur"]
+
+console.log(belanja.length);
+console.log(belanjaBaru.length);
+
 
 /**
  * Output yang diharapkan:

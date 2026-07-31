@@ -21,6 +21,12 @@
  */
 
 // TODO: tulis kode kamu di sini
+ranking = ["Budi", "Sari", "Rina"]
+const [juara1, , juara3] = ranking
+console.log(juara1);
+console.log(juara3);
+
+
 
 /**
  * Output yang diharapkan:

@@ -22,6 +22,11 @@
  */
 
 // TODO: tulis kode kamu di sini
+siswa = { nama: "Andi", kelas: "12 IPA", nilai: 90, };
+
+const { nama, nilai } = siswa;
+console.log(nama);
+console.log(nilai);
 
 /**
  * Output yang diharapkan:
