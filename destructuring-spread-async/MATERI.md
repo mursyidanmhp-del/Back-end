@@ -27,10 +27,10 @@ sekalian' — LANGSUNG dapet dua-duanya dalam satu kali ambil."
 kardus BARU dari hasil foto itu plus satu barang tambahan — kardus
 ASLINYA gak disentuh sama sekali."
 
-**Promise & async/await** itu tentang WAKTU: kadang kamu minta tolong
-orang lain ambilin barang dari gudang yang jauh — gak instan, ada jeda
-nunggu. Promise itu "surat janji" yang bakal dikasih HASIL-nya begitu
-udah selesai, bukan sekarang.
+**Async/await** itu tentang WAKTU: kadang kamu minta tolong orang lain
+ambilin barang dari gudang yang jauh — gak instan, ada jeda nunggu.
+`await` itu cara kamu bilang "aku berdiri nunggu di sini sampai barang
+itu beneran datang, baru aku lanjut."
 
 > 🎤 **Cara buka sesi:** *"Hari ini kita gak belajar konsep logika
 > baru — kita belajar cara NULIS kode yang lebih rapi buat hal yang
@@ -112,88 +112,55 @@ const belanjaBaru = [...belanja, "Telur"];
 
 ---
 
-## 4️⃣ Promise — "Surat Janji" Buat Hasil yang Belum Ada Sekarang
+## 4️⃣ Async/Await — Nunggu Proses yang Makan Waktu
 
 ```js
-function ambilData() {
-  return new Promise(function (resolve) {
-    setTimeout(function () {
-      resolve("Data siswa: Budi");
-    }, 100);
-  });
-}
-
-ambilData().then(function (hasil) {
-  console.log(hasil);
-});
-```
-
-- `new Promise(...)` itu bikin "surat janji". Di dalamnya ada
-  `setTimeout` yang nyimulasiin PROSES NUNGGU (di dunia nyata, ini
-  biasanya nunggu jawaban dari database atau server lain).
-- `resolve(...)` itu momen "janjinya ditepatin" — hasil akhirnya
-  dikasih di sini.
-- `.then(...)` itu cara BACA hasil janji itu SETELAH beneran selesai
-  (bukan sebelum).
-
-> 🎤 **Cara ngomonginnya:** *"`new Promise` itu kamu nyuruh orang lain
-> ambil barang dari gudang jauh, dia janji bakal kasih tau begitu
-> udah ketemu. `resolve(...)` itu pas dia bilang 'nih ketemu, ini
-> barangnya.' `.then(...)` itu cara kamu 'nunggu dia selesai, baru
-> lakuin sesuatu sama barangnya.'"*
-
----
-
-## 5️⃣ Async/Await — Cara BACA Promise yang Lebih Rapi
-
-```js
-function ambilData() {
-  return new Promise(function (resolve) {
-    setTimeout(function () {
-      resolve("Data siswa: Budi");
-    }, 100);
-  });
-}
+const { setTimeout } = require("timers/promises");
 
 async function main() {
-  const hasil = await ambilData();
+  const hasil = await setTimeout(100, "Data siswa: Budi");
   console.log(hasil);
 }
 
 main();
 ```
 
-- **PENTING:** ini BUKAN cara baru bikin Promise — cara BIKIN-nya
-  (`new Promise`, `resolve`) TETEP SAMA. Yang beda cuma cara MANGGIL/
-  MEMBACA hasilnya.
-- `async` di depan function artinya "function ini boleh pakai
-  `await` di dalamnya."
-- `await` artinya "berhenti dulu di sini, tunggu sampai Promise ini
-  beneran selesai, baru lanjut ke baris berikutnya." Kodenya jadi
-  kebaca dari atas ke bawah kayak alur biasa — gak numpuk `.then()`.
+- `require("timers/promises")` — ini module BAWAAN Node.js yang
+  nyediain versi `setTimeout` yang bisa di-`await`. Gak perlu bikin
+  apa-apa dari nol, tinggal pakai.
+- `async` di depan function artinya "function ini boleh pakai `await`
+  di dalamnya."
+- `await setTimeout(100, "Data siswa: Budi")` artinya "tunggu 100
+  milidetik, terus kasih aku nilai `"Data siswa: Budi"` itu." Baris
+  SETELAHNYA (yaitu `console.log(hasil)`) BENERAN nunggu sampai jeda
+  itu selesai, baru jalan.
+- `main()` di baris terakhir itu yang MEMANGGIL function `main` supaya
+  beneran dijalankan (nulis `async function main() {...}` doang belum
+  jalan kalau gak dipanggil).
 
-> 🎤 **Cara ngomonginnya:** *"`.then()` itu kayak nitip pesan 'kalau
-> udah selesai, tolong lakuin ini.' `await` itu kamu BERDIRI NUNGGU di
-> depan sampai selesai, baru lanjut jalan. Hasil akhirnya SAMA, tapi
-> `await` bikin kodenya kebaca kayak cerita biasa, gak melompat-lompat."*
+> ⚠️ **Kenapa ini penting:** di dunia nyata, kamu gak akan pernah
+> nunggu `setTimeout` kayak gini — kamu bakal nunggu QUERY DATABASE
+> yang makan waktu beneran (bisa 50ms, bisa 2 detik, tergantung
+> servernya). `await` itu cara bilang "tunggu proses ini kelar,
+> BARU lanjut ke baris berikutnya" — entah itu nunggu timer kayak
+> sekarang, atau nunggu database nanti, POLA NULISNYA SAMA.
+
+> 🎤 **Cara ngomonginnya:** *"`await` itu kamu BERDIRI NUNGGU di depan
+> sampai prosesnya selesai, baru lanjut jalan ke baris berikutnya.
+> Kodenya kebaca dari atas ke bawah kayak cerita biasa — gak
+> melompat-lompat kayak kalau pakai callback."*
 
 ---
 
-## 6️⃣ Gabungan: Async/Await + Destructuring
+## 5️⃣ Gabungan: Async/Await + Destructuring
 
 Ini pola yang bakal KETEMU TERUS di Express (dan nanti di database):
 
 ```js
-function ambilUser() {
-  return new Promise(function (resolve) {
-    setTimeout(function () {
-      resolve({ nama: "Dinda", umur: 21 });
-    }, 100);
-  });
-}
+const { setTimeout } = require("timers/promises");
 
 async function main() {
-  const { nama, umur } = await ambilUser();
+  const { nama, umur } = await setTimeout(100, { nama: "Dinda", umur: 21 });
   console.log(nama);
   console.log(umur);
 }
@@ -201,7 +168,14 @@ async function main() {
 main();
 ```
 
-> 🎤 **Cara nutup sesi:** *"Lihat kan? `await ambilUser()` ngasih
+- `await setTimeout(100, { nama: "Dinda", umur: 21 })` — sama kayak
+  sebelumnya, tunggu 100 milidetik, tapi sekarang yang dikasih balik
+  adalah OBJECT, bukan teks.
+- `const { nama, umur } = await ...` — LANGSUNG destructuring dari
+  hasil `await`, dalam SATU baris yang sama. Gak perlu simpan ke
+  variabel sementara dulu baru destructuring belakangan.
+
+> 🎤 **Cara nutup sesi:** *"Lihat kan? `await setTimeout(...)` ngasih
 > object balik, terus LANGSUNG kita destructuring di baris yang sama
 > — gak perlu simpan ke variabel sementara dulu. Ini pola yang bakal
 > kamu tulis TERUS pas ambil data dari database nanti: `await`, hasil-
@@ -216,10 +190,9 @@ main();
 | **Destructuring object** | `const { a, b } = obj` — ambil berdasarkan NAMA property |
 | **Destructuring array** | `const [a, , c] = arr` — ambil berdasarkan POSISI, boleh skip |
 | **Spread (`...`)** | Bongkar isi array/object buat bikin SALINAN BARU tanpa mengubah aslinya |
-| **`new Promise`** | "Surat janji" hasil yang baru ada NANTI, bukan sekarang |
-| **`resolve(...)`** | Momen Promise-nya beres, ngasih hasil akhir |
-| **`.then(...)`** | Cara LAMA baca hasil Promise |
-| **`async`/`await`** | Cara BARU (lebih rapi) baca hasil Promise yang sama |
+| **`async`** | Kata kunci di depan function, nandain "function ini boleh pakai `await`" |
+| **`await`** | "Tunggu dulu di sini sampai proses ini selesai, baru lanjut ke baris berikutnya" |
+| **`require("timers/promises")`** | Module bawaan Node.js buat nyimulasiin proses yang makan waktu |
 
 ---
 
@@ -228,7 +201,7 @@ main();
 1. *"Bedanya destructuring object sama destructuring array apa?"*
 2. *"Kenapa kita pakai spread (`...belanja`), bukan langsung
    `belanja.push(...)`?"*
-3. *"`.then()` sama `await` itu beda konsep atau cuma beda cara nulis
-   buat hal yang sama?"*
+3. *"Kalau ada `await` di suatu baris, baris SETELAHNYA jalan
+   duluan atau nunggu dulu?"*
 
 Kalau 3 ini kejawab lancar, lanjut ke latihan di folder `soal/`.

@@ -11,9 +11,8 @@ const tests = [
   "01-test-destructuring-object.js",
   "02-test-destructuring-array.js",
   "03-test-spread-operator.js",
-  "04-test-promise-dasar.js",
-  "05-test-async-await-dasar.js",
-  "06-test-gabungan.js"
+  "04-test-async-await-dasar.js",
+  "05-test-gabungan.js"
 ];
 
 tests.forEach((testFile) => {

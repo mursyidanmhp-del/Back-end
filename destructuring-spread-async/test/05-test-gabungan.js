@@ -3,15 +3,15 @@ const path = require("path");
 const { execSync } = require("child_process");
 const { stripComments } = require("./strip-comments");
 
-const fileName = "05-async-await-dasar.js";
+const fileName = "05-gabungan-async-destructuring.js";
 const filePath = path.join(__dirname, "..", "soal", fileName);
 
-const requiredWords = ["async function main", "await", "new Promise"];
-const forbiddenWords = [".then("];
-const expectedOutputs = ["Data siswa: Budi"];
+const requiredWords = ['require("timers/promises")', "async function main", "await setTimeout", "{ nama"];
+const forbiddenWords = ["new Promise", ".then(", "resolve("];
+const expectedOutputs = ["Dinda", "21"];
 
 console.log("================================");
-console.log("Menjalankan test async-await-dasar.js");
+console.log("Menjalankan test gabungan.js");
 console.log("================================");
 
 if (!fs.existsSync(filePath)) {
@@ -26,7 +26,7 @@ let isValid = true;
 
 requiredWords.forEach((word) => {
   if (!codeOnly.includes(word)) {
-    console.log(`❌ async-await-dasar.js wajib menggunakan "${word}"`);
+    console.log(`❌ gabungan.js wajib menggunakan "${word}"`);
     isValid = false;
   } else {
     console.log(`✅ menggunakan "${word}"`);
@@ -35,7 +35,7 @@ requiredWords.forEach((word) => {
 
 forbiddenWords.forEach((word) => {
   if (codeOnly.includes(word)) {
-    console.log(`❌ async-await-dasar.js tidak boleh menggunakan "${word}"`);
+    console.log(`❌ gabungan.js tidak boleh menggunakan "${word}"`);
     isValid = false;
   }
 });
@@ -44,7 +44,7 @@ let output = "";
 try {
   output = execSync(`node "${filePath}"`, { timeout: 5000 }).toString().trim();
 } catch (error) {
-  console.log("❌ async-await-dasar.js error saat dijalankan");
+  console.log("❌ gabungan.js error saat dijalankan");
   process.exit(1);
 }
 
@@ -60,8 +60,8 @@ expectedOutputs.forEach((expectedText) => {
 });
 
 if (isValid) {
-  console.log("✅ async-await-dasar.js LULUS");
+  console.log("✅ gabungan.js LULUS");
 } else {
-  console.log("❌ async-await-dasar.js BELUM LULUS");
+  console.log("❌ gabungan.js BELUM LULUS");
   process.exit(1);
 }

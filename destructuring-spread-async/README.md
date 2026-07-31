@@ -4,9 +4,8 @@
 
 Latihan ini melatih 3 kebiasaan penulisan kode modern yang bakal
 dipakai terus mulai sekarang: destructuring object & array, spread
-operator, dan Promise/async-await. Ini jembatan wajib sebelum lanjut
-ke SQL & PostgreSQL (Phase 3), karena semua query database itu
-asynchronous.
+operator, dan async/await. Ini jembatan wajib sebelum lanjut ke SQL &
+PostgreSQL (Phase 3), karena semua query database itu asynchronous.
 
 > 📖 Belum familiar dengan materi ini? Baca dulu
 > [MATERI.md](MATERI.md) sebelum mulai mengerjakan soal di bawah.
@@ -21,16 +20,14 @@ asynchronous.
 │   ├── 01-destructuring-object.js
 │   ├── 02-destructuring-array.js
 │   ├── 03-spread-operator.js
-│   ├── 04-promise-dasar.js
-│   ├── 05-async-await-dasar.js
-│   └── 06-gabungan-async-destructuring.js
+│   ├── 04-async-await-dasar.js
+│   └── 05-gabungan-async-destructuring.js
 ├── test/
 │   ├── 01-test-destructuring-object.js
 │   ├── 02-test-destructuring-array.js
 │   ├── 03-test-spread-operator.js
-│   ├── 04-test-promise-dasar.js
-│   ├── 05-test-async-await-dasar.js
-│   ├── 06-test-gabungan.js
+│   ├── 04-test-async-await-dasar.js
+│   ├── 05-test-gabungan.js
 │   ├── test-all.js
 │   └── strip-comments.js
 └── package.json
@@ -54,7 +51,6 @@ Atau per soal:
 npm run test:destructuring-object
 npm run test:destructuring-array
 npm run test:spread-operator
-npm run test:promise-dasar
 npm run test:async-await-dasar
 npm run test:gabungan
 ```
@@ -89,28 +85,19 @@ baru jadi 3)
 
 ---
 
-# 🧪 SOAL 4 — PROMISE DASAR *(sedang)*
+# 🧪 SOAL 4 — ASYNC/AWAIT DASAR *(sedang)*
 
-Bikin function yang me-return `new Promise`, pakai `setTimeout` buat
-simulasi jeda, lalu ambil hasilnya pakai `.then()`.
-
-**Diharapkan output:** `Data siswa: Budi`
-
----
-
-# 🧪 SOAL 5 — ASYNC/AWAIT DASAR *(sedang-sulit)*
-
-Ambil hasil Promise yang SAMA seperti soal 4, tapi pakai `async`/
-`await` — bukan `.then()`.
+Pakai fungsi tunda bawaan Node.js (`timers/promises`) di dalam
+`async function`, lalu `await` hasilnya.
 
 **Diharapkan output:** `Data siswa: Budi`
 
 ---
 
-# 🧪 SOAL 6 — GABUNGAN: ASYNC/AWAIT + DESTRUCTURING *(sulit)*
+# 🧪 SOAL 5 — GABUNGAN: ASYNC/AWAIT + DESTRUCTURING *(sulit)*
 
-Ambil hasil Promise yang berupa object, langsung destructuring dari
-hasil `await` — pola yang bakal dipakai terus di Express + database.
+`await` sebuah object, langsung destructuring dari hasilnya dalam satu
+baris — pola yang bakal dipakai terus di Express + database.
 
 **Diharapkan output:** `Dinda` lalu `21`
 
@@ -121,9 +108,8 @@ hasil `await` — pola yang bakal dipakai terus di Express + database.
 - soal 1: `const`, `siswa`, destructuring `{ nama`
 - soal 2: `const`, `ranking`, destructuring array dengan skip `[juara1, , juara3]`
 - soal 3: `const`, `...belanja`
-- soal 4: `function ambilData`, `new Promise`, `setTimeout`, `resolve(`, `.then(`
-- soal 5: `async function main`, `await`, `new Promise`
-- soal 6: `async function main`, `await ambilUser`, destructuring `{ nama`, `new Promise`
+- soal 4: `require("timers/promises")`, `async function main`, `await`, `setTimeout`
+- soal 5: `require("timers/promises")`, `async function main`, `await setTimeout`, destructuring `{ nama`
 
 ## 🚫 Larangan
 
@@ -131,8 +117,7 @@ hasil `await` — pola yang bakal dipakai terus di Express + database.
 - soal 2: dilarang akses `ranking[0]` / `ranking[2]` pakai kurung siku
 - soal 3: dilarang `.push(`
 - soal 1-3: dilarang `let`, `var`, `function`, `if`, `for`, `while`
-- soal 4: dilarang `async`, `await`
-- soal 5, 6: dilarang `.then(`
+- soal 4, 5: dilarang `new Promise`, `.then(`, `resolve(`
 - mengubah nama variabel dari soal
 - menggabungkan semua jawaban dalam satu file
 
