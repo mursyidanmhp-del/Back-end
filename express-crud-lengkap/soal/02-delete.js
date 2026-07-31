@@ -29,7 +29,24 @@
  */
 
 // TODO: tulis kode kamu di sini
+const express = require("express");
+const app = express();
 
+app.use(express.json());
+
+let perpustakaan = [
+  { id: 1, judul: "Laskar Pelangi" },
+  { id: 2, judul: "Bumi Manusia" },
+];
+
+app.delete("/buku/:id", (req, res) => {
+    
+    perpustakaan = perpustakaan.filter(function(b){
+        return b.id !== Number(req.params.id)
+    })
+    res.status(200).json({ pesan: "Buku dihapus", sisa: perpustakaan.length })
+})
+module.exports = app
 /**
  * Kalau diakses DELETE ke "/buku/1", diharapkan:
  * - status: 200

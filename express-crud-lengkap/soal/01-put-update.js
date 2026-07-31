@@ -28,6 +28,24 @@
  */
 
 // TODO: tulis kode kamu di sini
+const express = require("express");
+const app = express();
+
+let perpustakaan = [
+  { id: 1, judul: "Laskar Pelangi" },
+  { id: 2, judul: "Bumi Manusia" },
+];
+app.use(express.json());
+
+app.put("/buku/:id", (req, res) => {
+ let buku = perpustakaan.find(function (b) {
+  return b.id === Number(req.params.id)
+  })
+  buku.judul = req.body.judul
+  res.status(200).json(buku);
+});
+
+module.exports = app
 
 /**
  * Kalau diakses PUT ke "/buku/2" dengan body { "judul": "Bumi Manusia Baru" },
