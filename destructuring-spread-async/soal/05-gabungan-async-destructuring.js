@@ -24,7 +24,14 @@
  */
 
 // TODO: tulis kode kamu di sini
+const {setTimeout} = require("timers/promises")
+async function main() {
+    const {nama, umur} = await setTimeout (100, { nama: "Dinda", umur: 21 })
+    console.log(nama);
+    console.log(umur);
+}
 
+main ()
 /**
  * Output yang diharapkan:
  * Dinda
