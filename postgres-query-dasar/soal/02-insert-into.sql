@@ -17,5 +17,12 @@
 --
 -- Cara test (jalankan dari folder postgres-query-dasar):
 -- npm run test:insert-into
+INSERT INTO siswa (nama, kelas, nilai)
+VALUES ('Andi', '12 IPA', '90');
 
+INSERT INTO siswa (nama, kelas, nilai)
+VALUES ('Budi', '12 IPA', '75');
+
+INSERT INTO siswa (nama, kelas, nilai)
+VALUES ('Sari', '11 IPA', '88');
 -- TODO: tulis query kamu di sini

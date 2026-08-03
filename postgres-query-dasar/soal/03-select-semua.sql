@@ -14,3 +14,5 @@
 -- npm run test:select-semua
 
 -- TODO: tulis query kamu di sini
+SELECT * FROM siswa;
+

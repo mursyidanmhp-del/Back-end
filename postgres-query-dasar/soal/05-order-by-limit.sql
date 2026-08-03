@@ -16,3 +16,6 @@
 -- npm run test:order-by-limit
 
 -- TODO: tulis query kamu di sini
+SELECT nama, nilai FROM siswa
+ORDER BY nilai DESC
+LIMIT 2;

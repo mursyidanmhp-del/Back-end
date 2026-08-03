@@ -20,3 +20,9 @@
 -- npm run test:create-table
 
 -- TODO: tulis query kamu di sini
+CREATE TABLE siswa (
+    id SERIAL PRIMARY KEY
+    nama VARCHAR(50) NOT NULL
+    kelas VARCHAR(10)
+    nilai INTEGER DEFAULT 0
+)

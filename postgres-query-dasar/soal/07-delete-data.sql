@@ -17,3 +17,5 @@
 -- npm run test:delete-data
 
 -- TODO: tulis query kamu di sini
+DELETE FROM siswa
+WHERE nama = 'Rina'

@@ -18,3 +18,5 @@
 -- npm run test:update-data
 
 -- TODO: tulis query kamu di sini
+UPDATE siswa SET nilai = 95
+WHERE nama = 'Budi'

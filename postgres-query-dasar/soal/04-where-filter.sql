@@ -13,5 +13,6 @@
 --
 -- Cara test (jalankan dari folder postgres-query-dasar):
 -- npm run test:where-filter
-
+SELECT nama FROM siswa
+WHERE nilai >= 80
 -- TODO: tulis query kamu di sini
