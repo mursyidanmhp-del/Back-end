@@ -22,13 +22,43 @@ database dulu (lihat bawah) sebelum `npm test`.
 ## 🛠️ Setup Database
 
 1. Pastikan PostgreSQL sudah terpasang dan jalan di komputer kamu.
-   - Mac: `brew install postgresql@16` lalu `brew services start postgresql@16`
-   - Atau pakai installer resmi dari [postgresql.org](https://www.postgresql.org/download/)
+
+   **Windows:**
+   - Download & jalankan installer dari
+     [postgresql.org/download/windows](https://www.postgresql.org/download/windows/)
+     (link "Download the installer" → EnterpriseDB).
+   - Pas wizard jalan: biarin **Command Line Tools** tetep dicentang
+     (itu yang ngasih `psql`/`createdb`), dan **CATET password**
+     yang kamu buat buat user `postgres` — bakal dipakai di langkah 4.
+   - Servicenya (`postgresql-x64-16`) otomatis jalan sendiri abis
+     instalasi, gak perlu perintah start manual.
+   - Kalau `psql`/`createdb` gak dikenali di Command Prompt/PowerShell,
+     tambahin `C:\Program Files\PostgreSQL\16\bin` ke PATH (Start Menu
+     → "Edit environment variables for your account"), lalu buka
+     terminal baru.
+
+   **Mac:**
+   ```bash
+   brew install postgresql@16
+   brew services start postgresql@16
+   ```
+   Tambahin ke PATH kalau `psql` belum kekenal (`~/.zshrc`):
+   ```bash
+   export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+   ```
+
+   > Detail lengkap tiap OS + perintah `psql` dasar ada di
+   > [MATERI.md](MATERI.md) bagian "Instalasi PostgreSQL".
+
 2. Buat database khusus buat latihan ini:
    ```bash
-   createdb latihan_postgres_dasar
+   createdb -U postgres latihan_postgres_dasar
    ```
-   Kalau `createdb` gak ketemu / minta user tertentu, bisa juga lewat `psql`:
+   (di Windows bakal diminta password `postgres` yang tadi dicatet).
+   Kalau `createdb` gak ketemu, bisa juga lewat `psql`:
+   ```bash
+   psql -U postgres
+   ```
    ```sql
    CREATE DATABASE latihan_postgres_dasar;
    ```
@@ -37,9 +67,10 @@ database dulu (lihat bawah) sebelum `npm test`.
    cd postgres-query-dasar
    npm install
    ```
-4. (Opsional) Kalau user/password PostgreSQL kamu BUKAN default
-   (`postgres`/`postgres`), copy `.env.example` jadi `.env` dan
-   sesuaikan:
+4. Copy `.env.example` jadi `.env`, lalu sesuaikan `PGPASSWORD` sama
+   password `postgres` kamu (di Windows ini **WAJIB** diisi, karena
+   passwordnya ditentuin sendiri pas instalasi — beda sama Mac yang
+   defaultnya gak perlu password sama sekali):
    ```bash
    cp .env.example .env
    ```
@@ -47,7 +78,7 @@ database dulu (lihat bawah) sebelum `npm test`.
    PGHOST=localhost
    PGPORT=5432
    PGUSER=postgres
-   PGPASSWORD=postgres
+   PGPASSWORD=ganti_sesuai_password_kamu
    PGDATABASE=latihan_postgres_dasar
    ```
 

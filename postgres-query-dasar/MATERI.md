@@ -65,17 +65,158 @@ Sebelum masuk `soal/`, PostgreSQL harus sudah TERPASANG dan JALAN di
 komputer murid, karena test di modul ini **beneran konek ke database
 asli** (bukan cuma cek teks kayak modul-modul sebelumnya).
 
-- Install PostgreSQL (via installer resmi, atau `brew install
-  postgresql` di Mac).
-- Install tool GUI biar gampang lihat isi database: **pgAdmin** atau
-  **TablePlus**.
-- Detail langkah setup database buat latihan ini ada di
-  [README.md](README.md) bagian "Setup Database".
-
 > 🎤 **Cara ngomonginnya:** *"Bedanya sama latihan-latihan JS
 > sebelumnya: kali ini kode SQL kamu bakal BENERAN dijalankan ke
 > database asli di komputer kamu, bukan cuma dicek teksnya doang. Jadi
-> sebelum ngerjain soal, kita setup dulu databasenya."*
+> sebelum ngerjain soal, kita setup dulu databasenya — lewat terminal,
+> pakai `psql`."*
+
+### Langkah 1 — Install PostgreSQL (Windows)
+
+1. Download installer resmi dari
+   [postgresql.org/download/windows](https://www.postgresql.org/download/windows/)
+   (link "Download the installer" → EnterpriseDB). Pilih versi terbaru
+   (misal 16.x), pilih Windows x86-64.
+2. Jalankan installer-nya. Pas wizard jalan, penting diperhatiin:
+   - **Components**: biarin default (PostgreSQL Server, pgAdmin 4,
+     Command Line Tools tetep DICENTANG — Command Line Tools itu yang
+     ngasih `psql`).
+   - **Password**: installer bakal minta bikin password buat
+     superuser `postgres`. **INGET/CATET password ini** — ini yang
+     nanti dipakai isi `PGPASSWORD` di `.env`.
+   - **Port**: biarin default `5432`.
+   - Sisanya (data directory, locale) biarin default, tinggal Next
+     terus sampai selesai.
+3. Setelah selesai, PostgreSQL otomatis jalan sebagai **Windows
+   Service** (namanya `postgresql-x64-16`) — beda sama Mac yang perlu
+   `brew services start` manual, di Windows dia OTOMATIS nyala tiap
+   komputer nyala, gak perlu dinyalain manual tiap mau kerja.
+
+Buka **Command Prompt** atau **PowerShell**, cek udah kepasang & bisa
+diakses:
+
+```bat
+psql --version
+```
+
+> ⚠️ Kalau muncul error `'psql' is not recognized...`, berarti
+> Command Line Tools belum masuk PATH. Cara benerin: cari folder
+> instalasinya (biasanya `C:\Program Files\PostgreSQL\16\bin`), lalu
+> tambahin ke PATH lewat **Edit environment variables for your
+> account** (search di Start Menu) → pilih `Path` → **New** → paste
+> path folder `bin` itu → OK semua → **buka Command Prompt/PowerShell
+> yang BARU** (yang lama gak ke-refresh).
+
+### Langkah 2 — Server Udah Otomatis Jalan
+
+Beda sama Mac, di Windows service PostgreSQL-nya OTOMATIS start abis
+instalasi (dan tiap komputer nyala). Cek udah nerima koneksi:
+
+```bat
+pg_isready
+```
+
+Kalau hasilnya `accepting connections`, tinggal lanjut bikin database.
+(Kalau suatu saat perlu restart service-nya: search "Services" di
+Start Menu → cari `postgresql-x64-16` → klik kanan → Restart.)
+
+### Langkah 3 — Bikin Database dari Terminal
+
+Karena di Windows password WAJIB (beda sama setup default Mac tadi
+yang "trust"), tiap perintah bakal nanya password `postgres` yang
+dicatet pas instalasi. Ada 2 cara, dua-duanya valid:
+
+**Cara A — satu baris, paling cepat:**
+
+```bat
+createdb -U postgres nama_database_kamu
+```
+
+(bakal muncul prompt `Password:` — ketik passwordnya, Enter)
+
+**Cara B — masuk ke `psql` dulu, baru bikin database:**
+
+```bat
+psql -U postgres
+```
+
+Ini masuk ke "mode interaktif" `psql`, connect ke database bawaan
+`postgres` (bakal diminta password dulu). Di dalamnya, ketik perintah
+SQL biasa:
+
+```sql
+CREATE DATABASE nama_database_kamu;
+```
+
+> 💡 Kalau tutor-nya pakai Mac (Homebrew: `brew install
+> postgresql@16` → `brew services start postgresql@16`) dan murid
+> pakai Windows kayak di atas, itu WAJAR beda — cuma cara instalnya
+> yang beda, `psql` dan perintah SQL-nya sama persis di kedua OS.
+
+### Cara Mastiin `createdb` Beneran Berhasil
+
+`createdb`/`CREATE DATABASE` itu **diam kalau sukses** — gak ada
+pesan "berhasil!" apa pun, cuma balik ke prompt biasa. Ini sering
+bikin murid ragu. Cara mastiinnya:
+
+```bat
+psql -U postgres -l
+```
+
+(`-l` = list). Ini nampilin tabel semua database yang ada — cek nama
+database yang baru dibikin ADA di daftar itu.
+
+Atau connect langsung ke database-nya:
+
+```bat
+psql -U postgres -d nama_database_kamu
+```
+
+Kalau BERHASIL connect, prompt-nya berubah jadi
+`nama_database_kamu=#` (bukan lagi `postgres=#`) — itu tandanya
+database-nya BENERAN ada dan bisa diakses. Kalau SALAH nama/gak ada,
+muncul error `database "..." does not exist`.
+
+> 🎤 **Cara ngomonginnya:** *"Di terminal, diem itu artinya sukses —
+> beda sama di kode yang biasanya ada console.log konfirmasi. Kalau
+> mau BUKTI databasenya beneran kebikin, connect langsung ke situ:
+> `psql -U postgres -d nama_database`. Kalau prompt-nya berubah jadi
+> nama database itu, berarti udah bener."*
+
+### Perintah `psql` yang Wajib Dikenalin ke Murid
+
+Begitu masuk `psql`, prompt-nya berubah jadi `nama_database=#`. Dari
+sini murid bisa:
+
+| Perintah | Artinya |
+|---|---|
+| `\l` | Lihat semua database yang ada |
+| `\c nama_database` | Pindah connect ke database lain |
+| `\dt` | Lihat semua table di database yang lagi aktif |
+| `\d nama_table` | Lihat struktur kolom satu table |
+| `\q` | Keluar dari psql, balik ke terminal biasa |
+
+> 🎤 **Cara ngomonginnya:** *"`psql` itu kayak masuk ke 'ruangan
+> khusus' buat ngobrol sama database — begitu masuk, prompt-nya
+> berubah nunjukin kamu lagi connect ke database mana. Ketik query SQL
+> langsung di situ, diakhiri titik koma. `\q` itu cara keluar
+> ruangannya, balik ke terminal biasa."*
+
+### Setup Database Khusus buat Modul Ini
+
+Buat ngerjain `soal/` di modul ini, bikin database `latihan_postgres_dasar`:
+
+```bash
+createdb latihan_postgres_dasar
+```
+
+Detail lengkap (termasuk kalau user/password PostgreSQL beda dari
+default) ada di [README.md](README.md) bagian "Setup Database".
+
+> 💡 Install tool GUI itu OPSIONAL, bukan wajib — **pgAdmin** atau
+> **TablePlus** bisa dipakai buat lihat isi database secara visual,
+> tapi semua yang dibutuhin modul ini (install, nyalain server, bikin
+> database) bisa dituntasin dari terminal doang pakai `psql`.
 
 ---
 
