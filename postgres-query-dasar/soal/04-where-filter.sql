@@ -1,0 +1,17 @@
+-- SOAL 4 — WHERE (FILTER DATA)
+--
+-- Cerita:
+-- SELECT * ambil SEMUA data — kadang kita cuma butuh yang MEMENUHI
+-- syarat tertentu. WHERE itu cara nyaring data, kayak nyari "siapa aja
+-- yang nilainya bagus" dari setumpuk data.
+--
+-- Ketentuan:
+-- - table siswa sudah diisi otomatis oleh test (4 baris data)
+-- - ambil kolom nama SAJA, untuk siswa yang nilai-nya >= 80
+-- - wajib menggunakan SELECT, nama, siswa, WHERE, nilai
+-- - dilarang menggunakan DROP, DELETE, UPDATE, INSERT, TRUNCATE
+--
+-- Cara test (jalankan dari folder postgres-query-dasar):
+-- npm run test:where-filter
+
+-- TODO: tulis query kamu di sini

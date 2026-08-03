@@ -1,0 +1,21 @@
+-- SOAL 2 — INSERT INTO
+--
+-- Cerita:
+-- Table kosong itu kayak rak kosong — sekarang saatnya isi datanya.
+-- INSERT INTO itu perintah buat nambahin baris (row) baru ke table.
+--
+-- Ketentuan:
+-- - table siswa sudah dibuat otomatis oleh test (kolom: id, nama, kelas, nilai)
+-- - insert 3 baris data berikut (boleh satu statement dengan banyak
+--   VALUES yang dipisah koma, atau 3 statement INSERT terpisah):
+--   1. nama: "Andi", kelas: "12 IPA", nilai: 90
+--   2. nama: "Budi", kelas: "12 IPS", nilai: 75
+--   3. nama: "Sari", kelas: "11 IPA", nilai: 88
+-- - JANGAN isi kolom id (biarkan SERIAL yang isi otomatis)
+-- - wajib menggunakan INSERT INTO, siswa, VALUES
+-- - dilarang menggunakan DROP TABLE, DELETE FROM, UPDATE, TRUNCATE
+--
+-- Cara test (jalankan dari folder postgres-query-dasar):
+-- npm run test:insert-into
+
+-- TODO: tulis query kamu di sini

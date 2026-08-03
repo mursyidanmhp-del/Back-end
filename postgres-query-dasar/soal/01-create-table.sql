@@ -1,0 +1,22 @@
+-- SOAL 1 — CREATE TABLE
+--
+-- Cerita:
+-- Selama ini (Phase 2, Express) data disimpan di array of objects yang
+-- hidup di memory — begitu server di-restart, data hilang. Table di
+-- PostgreSQL itu kayak "rak arsip permanen": barisnya (row) = satu
+-- data, kolomnya (column) = kategori data, dan semuanya tersimpan di
+-- disk, bukan cuma di memory.
+--
+-- Ketentuan:
+-- - buat table bernama siswa dengan kolom:
+--   1. id     -> SERIAL, PRIMARY KEY (angka otomatis nambah, gak perlu diisi manual)
+--   2. nama   -> VARCHAR(50), NOT NULL (wajib diisi, maksimal 50 karakter)
+--   3. kelas  -> VARCHAR(10) (boleh kosong)
+--   4. nilai  -> INTEGER, DEFAULT 0 (kalau gak diisi, otomatis 0)
+-- - wajib menggunakan CREATE TABLE, SERIAL, PRIMARY KEY, VARCHAR, NOT NULL, DEFAULT
+-- - dilarang menggunakan DROP TABLE, DROP DATABASE, TRUNCATE
+--
+-- Cara test (jalankan dari folder postgres-query-dasar):
+-- npm run test:create-table
+
+-- TODO: tulis query kamu di sini

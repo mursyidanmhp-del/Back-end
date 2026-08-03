@@ -1,0 +1,23 @@
+{
+  "name": "latihan-postgres-query-dasar",
+  "version": "1.0.0",
+  "description": "Latihan query dasar PostgreSQL: CREATE TABLE, INSERT, SELECT, WHERE, ORDER BY, LIMIT, UPDATE, DELETE",
+  "main": "test/test-all.js",
+  "scripts": {
+    "test": "node test/test-all.js",
+    "test:create-table": "node test/01-test-create-table.js",
+    "test:insert-into": "node test/02-test-insert-into.js",
+    "test:select-semua": "node test/03-test-select-semua.js",
+    "test:where-filter": "node test/04-test-where-filter.js",
+    "test:order-by-limit": "node test/05-test-order-by-limit.js",
+    "test:update-data": "node test/06-test-update-data.js",
+    "test:delete-data": "node test/07-test-delete-data.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

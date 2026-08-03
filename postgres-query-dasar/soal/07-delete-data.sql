@@ -1,0 +1,19 @@
+-- SOAL 7 — DELETE (HAPUS DATA)
+--
+-- Cerita:
+-- Kadang data emang harus dihapus permanen. DELETE itu perintahnya —
+-- dan sama kayak UPDATE, ini BAHAYA kalau lupa WHERE: tanpa WHERE,
+-- SEMUA baris di table bakal terhapus.
+--
+-- Ketentuan:
+-- - table siswa sudah diisi otomatis oleh test (4 baris data, termasuk
+--   Rina)
+-- - hapus baris milik siswa bernama "Rina" SAJA, siswa lain jangan
+--   ikut kehapus
+-- - wajib menggunakan DELETE, FROM, siswa, WHERE, Rina
+-- - dilarang menggunakan DROP, UPDATE, INSERT, TRUNCATE
+--
+-- Cara test (jalankan dari folder postgres-query-dasar):
+-- npm run test:delete-data
+
+-- TODO: tulis query kamu di sini
