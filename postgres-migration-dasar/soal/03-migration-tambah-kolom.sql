@@ -1,0 +1,19 @@
+-- SOAL 3 — MIGRATION: TAMBAH KOLOM
+--
+-- Cerita:
+-- Ini yang bikin migration beda dari CREATE TABLE biasa: struktur
+-- tabel BERUBAH seiring waktu. Tabel buku dari soal 2 udah dipakai,
+-- terus ternyata butuh kolom baru buat catet stok. Migration ke-2 ini
+-- NAMBAHIN kolom ke tabel yang SUDAH ADA, bukan bikin tabel baru.
+--
+-- Ketentuan:
+-- - tabel buku (dari soal 2) sudah ada waktu file ini dijalankan
+-- - tambahin kolom stok ke tabel buku:
+--   stok -> INTEGER, DEFAULT 0
+-- - wajib menggunakan ALTER TABLE, buku, ADD COLUMN, stok, INTEGER, DEFAULT
+-- - dilarang menggunakan CREATE TABLE, DROP TABLE, DROP DATABASE, TRUNCATE
+--
+-- Cara test (jalankan dari folder postgres-migration-dasar):
+-- npm run test:migration-tambah-kolom
+
+-- TODO: tulis query kamu di sini

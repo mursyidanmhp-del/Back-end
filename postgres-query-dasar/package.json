@@ -5,6 +5,7 @@
   "main": "test/test-all.js",
   "scripts": {
     "test": "node test/test-all.js",
+    "buat-db": "node test/buat-db.js",
     "cek-koneksi": "node test/cek-koneksi.js",
     "test:create-table": "node test/01-test-create-table.js",
     "test:insert-into": "node test/02-test-insert-into.js",

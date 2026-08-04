@@ -1,0 +1,22 @@
+{
+  "name": "latihan-postgres-migration-dasar",
+  "version": "1.0.0",
+  "description": "Latihan db.js (connection pool), parameterized query, dan migration dasar PostgreSQL",
+  "main": "test/test-all.js",
+  "scripts": {
+    "test": "node test/test-all.js",
+    "buat-db": "node test/buat-db.js",
+    "cek-koneksi": "node test/cek-koneksi.js",
+    "test:db": "node test/01-test-db.js",
+    "test:migration-buat-tabel": "node test/02-test-migration-buat-tabel.js",
+    "test:migration-tambah-kolom": "node test/03-test-migration-tambah-kolom.js",
+    "test:query-berparameter": "node test/04-test-query-berparameter.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
