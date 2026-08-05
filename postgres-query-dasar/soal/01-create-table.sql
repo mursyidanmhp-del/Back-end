@@ -26,3 +26,9 @@ CREATE TABLE siswa (
     kelas VARCHAR(10)
     nilai INTEGER DEFAULT 0
 )
+
+
+create table sekolah (
+    id SERIAL PRIMARY KEY
+    namaSekolah VARCHAR(50) NOT NULL    
+)

@@ -27,10 +27,10 @@ const pool = new Pool({
   // ENGUBAH KODE buat sesuain kredensial mereka. Dengan .env, mereka
   // tinggal ganti isi file .env, kode-nya gak disentuh sama sekali.
   host: process.env.PGHOST,
-  port: Number(process.env.PGPORT), // .env selalu berupa teks ("5432"), makanya di-convert ke Number
+  port: Number(process.env.PGPORT),// .env selalu berupa teks ("5432"), makanya di-convert ke Number
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
-  database: process.env.PGDATABASE,
+  database: process.env.PGDATABASE
 });
 
 // module.exports = pool (BUKAN sebuah function atau class) — jadi

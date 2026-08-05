@@ -1,7 +1,7 @@
 {
-  "name": "project-perpustakaan-mini",
+  "name": "simpel-config-migration-seeding",
   "version": "1.0.0",
-  "description": "Project gabungan: db.js, migration, seed, dan parameterized query CRUD",
+  "description": "Contoh paling ringkas: config DB, migration, seeding — 3 hal doang",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

@@ -3,6 +3,11 @@
  * di-query, tahap demi tahap.
  *
  * Cara pakai: npm run cek-koneksi
+ *
+ * Dipisah jadi 3 tahap yang KETAT urutannya (server nyala? →
+ * database ada? → bisa query?) biar kalau ada yang gagal, pesan
+ * errornya nunjuk PERSIS di tahap mana masalahnya — bukan cuma
+ * "connection refused" generik yang bisa berarti macem-macem.
  */
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env") });

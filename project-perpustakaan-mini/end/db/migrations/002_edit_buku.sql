@@ -1,0 +1,2 @@
+ALTER TABLE buku
+ADD deskripsi VARCHAR(200) 
