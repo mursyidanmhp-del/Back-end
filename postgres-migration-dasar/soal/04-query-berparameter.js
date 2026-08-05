@@ -26,3 +26,14 @@
  */
 
 // TODO: tulis kode kamu di sini
+const pool = require("./01-db");
+
+async function tambahBuku(judul, penulis) {
+  const hasil = await pool.query(
+    "INSERT INTO buku (judul, penulis) VALUES ($1, $2) RETURNING *",
+    [judul, penulis],
+  );
+  return hasil.rows[0];
+}
+
+module.exports = tambahBuku;
