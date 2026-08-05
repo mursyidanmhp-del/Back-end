@@ -3,6 +3,20 @@
  * Aman dijalankan berkali-kali.
  *
  * Cara pakai: npm run buat-db
+ *
+ * Catatan buat belajar:
+ * - Ini pakai `new Client` (BUKAN `Pool` kayak di config/database.js)
+ *   — sengaja, karena script ini cuma jalan SEKALI terus keluar,
+ *   bukan aplikasi yang hidup lama & nerima banyak request. Pool
+ *   emang buat itu, di sini kepake berlebihan.
+ * - Connect-nya ke database bawaan "postgres" DULU, bukan langsung
+ *   ke "perpustakaan_mini" — soalnya database yang mau dibikin itu
+ *   BELUM TENTU ADA. Harus connect ke database LAIN yang pasti ada
+ *   dulu, baru dari situ bisa nanya/bikin database baru.
+ * - Nama database gak bisa dikirim lewat placeholder $1 (beda sama
+ *   query data biasa) — `CREATE DATABASE` gak nerima parameter buat
+ *   nama objek database/tabel. Makanya nama-nya divalidasi manual
+ *   pakai regex SEBELUM ditempel ke teks query.
  */
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env") });
