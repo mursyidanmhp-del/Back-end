@@ -1,0 +1,18 @@
+{
+  "name": "project-perpustakaan-mini",
+  "version": "1.0.0",
+  "description": "Project gabungan: db.js, migration, seed, dan parameterized query CRUD",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "buat-db": "node buat-db.js",
+    "cek-koneksi": "node cek-koneksi.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

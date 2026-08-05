@@ -2,12 +2,13 @@
 
 ## 📖 Deskripsi
 
-Latihan ini melatih 3 hal yang bakal dipakai TERUS mulai Phase 4
+Latihan ini melatih 4 hal yang bakal dipakai TERUS mulai Phase 4
 ROADMAP ("Menghubungkan Express + PostgreSQL"): bikin **connection
 pool** (`db.js`) buat ngobrol ke database dari kode JavaScript, cara
 kirim data AMAN pakai **parameterized query** (cegah SQL Injection),
-dan cara ngatur perubahan struktur database pakai **migration**
-(file `.sql` bernomor + runner sendiri, gak pakai library luar).
+cara ngatur perubahan struktur database pakai **migration** (file
+`.sql` bernomor + runner sendiri, gak pakai library luar), dan cara
+isi database dengan **data contoh** pakai **seed**.
 
 > 📖 Belum familiar dengan materi ini? Baca dulu
 > [MATERI.md](MATERI.md) sebelum mulai mengerjakan soal di bawah.
@@ -65,12 +66,14 @@ kode/query kamu di sana.
 │   ├── 01-db.js
 │   ├── 02-migration-buat-tabel.sql
 │   ├── 03-migration-tambah-kolom.sql
-│   └── 04-query-berparameter.js
+│   ├── 04-query-berparameter.js
+│   └── 05-seed.js
 ├── test/
 │   ├── 01-test-db.js
 │   ├── 02-test-migration-buat-tabel.js
 │   ├── 03-test-migration-tambah-kolom.js
 │   ├── 04-test-query-berparameter.js
+│   ├── 05-test-seed.js
 │   ├── db.js            (pool milik grader, terpisah dari punya soal 1)
 │   ├── fixture.js
 │   ├── migrate.js        (runner migration — baca ini, isinya juga ada di MATERI.md)
@@ -102,6 +105,7 @@ npm run test:db
 npm run test:migration-buat-tabel
 npm run test:migration-tambah-kolom
 npm run test:query-berparameter
+npm run test:seed
 ```
 
 ---
@@ -149,20 +153,32 @@ SQL Injection).
 
 ---
 
+# 🧪 SOAL 5 — SEEDING *(sedang)*
+
+`seed()` yang `DELETE` data lama di tabel `buku`, terus isi ulang 3
+buku contoh pakai LOOP + placeholder — reuse pola dari soal 4.
+
+**Dicek:** `seed()` dijalanin DUA KALI berturut-turut — datanya harus
+TETEP 3 baris (bukan numpuk jadi 6). Ini yang mastiin `DELETE`-nya
+beneran dipakai, bukan cuma nulis biar lolos cek kata kunci.
+
+---
+
 ## ⚠️ Ketentuan Wajib
 
 - soal 1: `require("pg")`, `new Pool`, `process.env.PGHOST/PGUSER/PGPASSWORD/PGDATABASE`, `module.exports`
 - soal 2: `CREATE TABLE`, `SERIAL`, `PRIMARY KEY`, `VARCHAR`, `NOT NULL`
 - soal 3: `ALTER TABLE`, `buku`, `ADD COLUMN`, `stok`, `INTEGER`, `DEFAULT`
 - soal 4: `require("./01-db")`, `async function tambahBuku`, `$1`, `$2`, `RETURNING *`, `module.exports`
+- soal 5: `require("./01-db")`, `async function seed`, `DELETE FROM buku`, loop (`for`), `$1`, `module.exports`
 
 ## 🚫 Larangan
 
 - soal 1: `new Client` (harus `Pool`)
 - soal 2: `DROP TABLE`, `DROP DATABASE`, `TRUNCATE`, `ALTER TABLE`
 - soal 3: `CREATE TABLE`, `DROP TABLE`, `DROP DATABASE`, `TRUNCATE`
-- soal 4: backtick (`` ` ``) di query, nyambung teks query pakai `+`
-  — WAJIB placeholder `$1`/`$2`
+- soal 4, 5: backtick (`` ` ``) di query — WAJIB placeholder `$1`/`$2`
+- soal 5: nulis 3 `INSERT INTO` terpisah manual (harus loop)
 - mengganti nama tabel `buku` atau nama file `01-db.js`
 - menggabungkan semua jawaban dalam satu file
 

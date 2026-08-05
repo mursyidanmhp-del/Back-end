@@ -12,6 +12,7 @@ const tests = [
   "02-test-migration-buat-tabel.js",
   "03-test-migration-tambah-kolom.js",
   "04-test-query-berparameter.js",
+  "05-test-seed.js",
 ];
 
 tests.forEach((testFile) => {

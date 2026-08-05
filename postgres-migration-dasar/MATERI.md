@@ -1,4 +1,4 @@
-# 📘 Materi — db.js, Parameterized Query, & Migration
+# 📘 Materi — db.js, Parameterized Query, Migration, & Seeding
 
 > 🎯 **Materi ini didesain biar kamu (pengajar) bisa langsung ngajarin
 > cuma dengan SEKALI baca.** Tiap bagian ada skrip "cara ngomonginnya"
@@ -9,9 +9,10 @@ Baca ini dulu sebelum mengajar / mengerjakan latihan.
 Ini jembatan dari [`postgres-query-dasar`](../postgres-query-dasar) ke
 Phase 4 ROADMAP ("Menghubungkan Express + PostgreSQL"). Di modul
 sebelumnya, murid nulis SQL langsung di `psql`/`pgAdmin`. Modul ini
-ngajarin cara kode JavaScript **ngomong ke database**, dan cara ngatur
-**perubahan struktur database** secara rapi & terlacak — dua hal yang
-bakal dipakai TERUS mulai Phase 4 dan seterusnya.
+ngajarin cara kode JavaScript **ngomong ke database**, cara ngatur
+**perubahan struktur database** secara rapi & terlacak, dan cara isi
+database dengan **data contoh** — semua hal yang bakal dipakai TERUS
+mulai Phase 4 dan seterusnya.
 
 ---
 
@@ -189,6 +190,76 @@ async function jalankanMigrasi(pool, folderMigrasi) {
 
 ---
 
+## 4️⃣ Seeding — Data Contoh buat Development
+
+### Masalahnya
+
+Migration (soal 2 & 3) beres — tabel `buku` udah punya struktur yang
+bener. Tapi tabelnya **KOSONG**. Tiap kali database di-reset (laptop
+baru, setup ulang), mau nyoba `SELECT` atau `WHERE` butuh DATA dulu.
+Masa harus `INSERT` manual satu-satu tiap kali?
+
+### Solusinya — Script Seed
+
+```js
+// seed.js
+const pool = require("./01-db");
+
+async function seed() {
+  // 1. HAPUS dulu data lama — biar aman dijalanin berkali-kali
+  await pool.query("DELETE FROM buku");
+
+  // 2. Isi data contoh, pakai LOOP + placeholder (sama kayak soal 4)
+  const daftarBuku = [
+    { judul: "Laskar Pelangi", penulis: "Andrea Hirata" },
+    { judul: "Bumi Manusia", penulis: "Pramoedya Ananta Toer" },
+  ];
+
+  for (const buku of daftarBuku) {
+    await pool.query(
+      "INSERT INTO buku (judul, penulis) VALUES ($1, $2)",
+      [buku.judul, buku.penulis]
+    );
+  }
+}
+
+module.exports = seed;
+```
+
+- **`DELETE FROM buku` DULU** — ini kuncinya. Tanpa ini, tiap kali
+  `seed()` dijalanin, data lama gak kehapus dan data baru numpuk di
+  atasnya (jalanin 2x = data dobel, jalanin 5x = data 5x lipat). Ini
+  konsep **idempotent** yang SAMA PERSIS kayak migration di section
+  3 — bedanya migration itu buat STRUKTUR, seed itu buat DATA.
+- **Loop + placeholder**, bukan nulis `INSERT` manual berkali-kali —
+  ini reuse LANGSUNG dari soal 4 (parameterized query). Gak ada
+  konsep baru di sini selain "isi array, loop, insert."
+- Seed BEDA dari migration: migration WAJIB jalan berurutan & tercatat
+  (karena ubah struktur, harus konsisten). Seed BOLEH dijalanin ulang
+  bebas kapan aja pas butuh data contoh — makanya cukup 1 file, gak
+  perlu sistem penomoran & `schema_migrations` kayak migration.
+
+> 🎤 **Cara ngomonginnya:** *"Migration itu 'bikin rak kosong yang
+> strukturnya bener'. Seed itu 'isi rak itu sama barang contoh buat
+> latihan/demo'. Makanya seed SELALU hapus dulu isinya sebelum isi
+> ulang — anggap aja kayak 'reset ke kondisi awal, terus isi lagi
+> dari nol', bukan nambah-nambahin terus tanpa berhenti."*
+
+### ⚠️ Kenapa Ini WAJIB Dipahami Manual Dulu
+
+Di dunia nyata, seed data yang lebih besar/variatif sering di-generate
+pakai tool atau AI (misal minta AI bikinin 50 baris data dummy). **Itu
+gak masalah — TAPI cuma kalau kamu udah ngerti apa yang sebenernya
+kejadian di baliknya.** Kalau langsung pakai hasil AI tanpa paham pola
+di atas, gampang kejadian: lupa `DELETE` dulu (data numpuk terus),
+gak sadar loop-nya nyambung teks manual (bahaya SQL Injection kayak
+section 2), atau gak ngerti kenapa scriptnya error pas dijalanin ulang.
+Kuasain dulu pola manual di soal 5 — nanti pas udah lancar, baru boleh
+mempercepat pakai AI, dengan tetep TAU persis apa yang mau dicek kalau
+hasilnya salah.
+
+---
+
 ## ✅ Ringkasan
 
 | Istilah | Artinya |
@@ -198,6 +269,7 @@ async function jalankanMigrasi(pool, folderMigrasi) {
 | **Parameterized query (`$1`, `$2`)** | Cara AMAN masukin nilai dari luar ke query — WAJIB, cegah SQL Injection |
 | **Migration** | File SQL bernomor yang nyatet SATU perubahan struktur database |
 | **`schema_migrations`** | Tabel "daftar hadir" — nyatet migration mana yang udah pernah dijalanin |
+| **Seed** | Script yang isi tabel dengan DATA contoh — hapus dulu, baru isi ulang |
 | **Idempotent** | Dijalanin berkali-kali, hasilnya tetep sama (gak dobel-dobel) |
 
 ---
@@ -209,5 +281,7 @@ async function jalankanMigrasi(pool, folderMigrasi) {
    nama = $1` itu aman?"*
 3. *"Kalau ada 2 file migration, `002_tambah_kolom.sql` dan
    `001_buat_tabel.sql`, mana yang dijalanin duluan, dan kenapa?"*
+4. *"Kenapa script seed harus `DELETE` data lama dulu sebelum isi
+   data baru?"*
 
-Kalau 3 ini kejawab lancar, lanjut ke latihan di folder `soal/`.
+Kalau 4 ini kejawab lancar, lanjut ke latihan di folder `soal/`.

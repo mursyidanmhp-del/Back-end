@@ -10,7 +10,8 @@
     "test:db": "node test/01-test-db.js",
     "test:migration-buat-tabel": "node test/02-test-migration-buat-tabel.js",
     "test:migration-tambah-kolom": "node test/03-test-migration-tambah-kolom.js",
-    "test:query-berparameter": "node test/04-test-query-berparameter.js"
+    "test:query-berparameter": "node test/04-test-query-berparameter.js",
+    "test:seed": "node test/05-test-seed.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
