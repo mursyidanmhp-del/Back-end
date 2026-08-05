@@ -17,3 +17,8 @@
 -- npm run test:migration-buat-tabel
 
 -- TODO: tulis query kamu di sini
+CREATE TABLE buku (
+    id SERIAL PRIMARY KEY,
+    judul VARCHAR (100) NOT NULL,
+    penulis VARCHAR (100)
+);

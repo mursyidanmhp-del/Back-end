@@ -32,3 +32,23 @@
  */
 
 // TODO: tulis kode kamu di sini
+const pool = require("./01-db")
+
+async function seed(){
+    await pool.query("DELETE FROM buku");
+    
+    const daftarBuku = [
+        {judul: "Laskar Pelangi", penulis: "Andrea Hirata"},
+        {judul: "Bumi Manusia", penulis: "Pramoedya Ananta Toer"},
+        {judul: "Negeri 5 Menara", penulis: "Ahmad Fuadi"}
+    ]
+
+     for (const buku of daftarBuku) {
+        await pool.query(
+          "INSERT INTO buku (judul, penulis) VALUES ($1, $2)",
+          [buku.judul, buku.penulis]
+        );
+      }
+}
+
+ module.exports = seed

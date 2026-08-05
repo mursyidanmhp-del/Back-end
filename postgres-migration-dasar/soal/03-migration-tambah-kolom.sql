@@ -17,3 +17,6 @@
 -- npm run test:migration-tambah-kolom
 
 -- TODO: tulis query kamu di sini
+ALTER TABLE buku
+ADD COLUMN
+stok INTEGER DEFAULT 0
